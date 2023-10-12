@@ -1,0 +1,6 @@
+GL-Demo/.vs/*
+GL-Demo/.vs
+GL-Demo/x64/Debug
+*.exe
+*.exp
+*.pdb
