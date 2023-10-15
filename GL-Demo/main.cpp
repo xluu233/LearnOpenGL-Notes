@@ -4,6 +4,7 @@
 #include <windows.h>
 #include "gl_window.h"
 #include "gl_light_color.h"
+#include "gl_model.h"
 #include <string>
 
 GLFWwindow* glfWindow;
@@ -54,15 +55,18 @@ int main()
 	//win_test.createTwoTriangle();
 	//win_test.testShader();
 	//win_test.testTextpures();
-	win_test.testTextpures2();
+	//win_test.testTextpures2();
 	//win_test.testMatrix();
 	//win_test.test3DBoxs();
 	//win_test.testCamera();
 
 	//gl_light_color lightColor(glfWindow);
+	//lightColor.createLightSource();
 	//lightColor.createLightSource2();
-	//std::string path("..//resource//nanosuit//nanosuit.obj");
-	//lightColor.loadModel(path);
+	
+	std::string path("..//resource//nanosuit//nanosuit.obj");
+	gl_model m(glfWindow);
+	m.loadModel(path);
 
 
 

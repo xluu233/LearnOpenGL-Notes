@@ -42,14 +42,40 @@ public:
     float Zoom;
 
     // constructor with vectors
-    Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), float yaw = YAW, float pitch = PITCH) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
+
+    /*Camera(glm::vec3 position = glm::vec3(0.0f, 0.0f, 3.0f))
+    {
+        Position = position;
+        WorldUp = glm::vec3(0.0f, 1.0f, 0.0f);
+        Yaw = YAW;
+        Pitch = PITCH;
+        Front = glm::vec3(0.0f, 0.0f, -1.0f);
+        MovementSpeed = SPEED;
+        MouseSensitivity = SENSITIVITY;
+        Zoom = ZOOM;
+        updateCameraVectors();
+    }*/
+
+    // constructor with vectors
+    Camera(
+        glm::vec3 position = glm::vec3(0.0f, 0.0f, 0.0f),
+        glm::vec3 front = glm::vec3(0.0f, 0.0f, -1.0f),
+        glm::vec3 up = glm::vec3(0.0f, 1.0f, 0.0f), 
+        float yaw = YAW, 
+        float pitch = PITCH)
     {
         Position = position;
         WorldUp = up;
         Yaw = yaw;
         Pitch = pitch;
+        Front = front;
+        MovementSpeed = SPEED;
+        MouseSensitivity = SENSITIVITY;
+        Zoom = ZOOM;
         updateCameraVectors();
     }
+
+
     // constructor with scalar values
     Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
     {
@@ -63,6 +89,9 @@ public:
     // returns the view matrix calculated using Euler Angles and the LookAt Matrix
     glm::mat4 GetViewMatrix()
     {
+        //1、相机位置
+        //2、目标位置target
+        //3、相机上向量up
         return glm::lookAt(Position, Position + Front, Up);
     }
 

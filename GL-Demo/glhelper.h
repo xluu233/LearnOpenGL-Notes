@@ -10,6 +10,7 @@
 #include <iostream>
 #include <math.h>
 
+#include "camera.hpp"
 #include "stb_image.h"
 
 #include <assimp/Importer.hpp>
@@ -22,3 +23,7 @@
 
 using std::vector;
 using std::string;
+
+static unsigned int gl_screenWidth = 1200;
+static unsigned int gl_screenHeight = 800;
+

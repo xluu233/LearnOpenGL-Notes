@@ -6,18 +6,24 @@
 #include "model.h"
 #include "camera.hpp"
 #include "shader.h"
-
 #include <string>
 
-
-
-static int gl_screenWidth = 1200;
-static int gl_screenHeight = 800;
 
 class gl_light_color
 {
 private:
 	GLFWwindow* window;
+
+	//camera
+	//Camera camera;
+	Camera camera;
+
+	//lighting
+	glm::vec3 lightPos = glm::vec3(1.2f, 1.0f, 2.0f);
+
+	//物体颜色和光照颜色
+	glm::vec3 cubeColor = glm::vec3(1.0f, 0.5f, 0.31f);
+	glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
 
 
 	float deltaTime{ 0.0f };
@@ -26,20 +32,14 @@ private:
 	//处理键盘事件
 	void processInput(GLFWwindow* window);
 
-	//C++的类成员函数不能作为回调函数！！！因为每个成员函数都需要有一个对象实例去调用它。
-	/*void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-	{
-		screenWidth = width;
-		screenHeight = height;
-		std::cout << "size changed, width:" << width << " height:" << height << std::endl;
-		glViewport(0, 0, width, height);
-	};*/
-
-
 public:
 	gl_light_color(GLFWwindow* window)
 	{
 		this->window = window;
+		glViewport(0, 0, gl_screenWidth, gl_screenHeight);
+
+		camera.Front = glm::vec3(0.0f, 0.0f, -3.0f);
+
 		glfwSetFramebufferSizeCallback(window, [](GLFWwindow* window, int width, int height) {
 			gl_screenWidth = width;
 			gl_screenHeight = height;
@@ -52,7 +52,6 @@ public:
 
 	void createLightSource2();
 
-	void loadModel(const std::string& path);
 
 };
 

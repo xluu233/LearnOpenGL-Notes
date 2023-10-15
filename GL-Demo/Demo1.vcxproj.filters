@@ -68,6 +68,9 @@
     <ClInclude Include="mesh.h">
       <Filter>头文件\model</Filter>
     </ClInclude>
+    <ClInclude Include="gl_model.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Demo1.rc">

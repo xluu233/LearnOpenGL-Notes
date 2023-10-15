@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClInclude Include="camera.hpp" />
     <ClInclude Include="gl_light_color.h" />
+    <ClInclude Include="gl_model.h" />
     <ClInclude Include="mesh.h" />
     <ClInclude Include="model.h" />
     <ClInclude Include="resource.h" />
