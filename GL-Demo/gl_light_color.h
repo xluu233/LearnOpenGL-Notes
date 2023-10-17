@@ -16,7 +16,7 @@ private:
 
 	//camera
 	//Camera camera;
-	Camera camera;
+	//Camera camera;
 
 	//lighting
 	glm::vec3 lightPos = glm::vec3(1.2f, 1.0f, 2.0f);
@@ -26,11 +26,11 @@ private:
 	glm::vec3 lightColor = glm::vec3(1.0f, 1.0f, 1.0f);
 
 
-	float deltaTime{ 0.0f };
-	float lastFrame{ 0.0f };
+	//float deltaTime{ 0.0f };
+	//float lastFrame{ 0.0f };
 
 	//处理键盘事件
-	void processInput(GLFWwindow* window);
+	//void processInput(GLFWwindow* window);
 
 public:
 	gl_light_color(GLFWwindow* window)

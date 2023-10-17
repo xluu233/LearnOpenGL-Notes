@@ -1,8 +1,15 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "glhelper.h"
 #include "shader.h"
+#include <glad/glad.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+#include <assimp/types.h>
 
 
 //¶¥µã

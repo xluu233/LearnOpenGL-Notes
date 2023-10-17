@@ -2,7 +2,14 @@
 
 #include <string>
 #include <vector>
-#include "glhelper.h"
+#include <glad/glad.h> // 包含glad来获取所有的必须OpenGL头文件
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+#include <assimp/types.h>
 #include "mesh.h"
 
 using std::vector;

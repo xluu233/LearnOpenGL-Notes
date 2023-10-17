@@ -42,6 +42,9 @@
     <ClCompile Include="glhelper.h">
       <Filter>头文件</Filter>
     </ClCompile>
+    <ClCompile Include="glhelper.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gl_window.h">
@@ -69,6 +72,9 @@
       <Filter>头文件\model</Filter>
     </ClInclude>
     <ClInclude Include="gl_model.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="skybox.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

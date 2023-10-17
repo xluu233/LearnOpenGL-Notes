@@ -1,13 +1,12 @@
 #include <iostream>
-#include <glad/glad.h>
-#include <glfw3.h>
 #include <windows.h>
+#include <string>
+#include "glhelper.h"
 #include "gl_window.h"
 #include "gl_light_color.h"
 #include "gl_model.h"
-#include <string>
+#include "skybox.h"
 
-GLFWwindow* glfWindow;
 
 int initOpenGL()
 {
@@ -49,7 +48,7 @@ int main()
 	}
 
 	//´°¿Ú²âÊÔ
-	gl_window win_test(glfWindow);
+	//gl_window win_test(glfWindow);
 	//win_test.createWindow();
 	//win_test.createTriangle();
 	//win_test.createTwoTriangle();
@@ -63,11 +62,13 @@ int main()
 	//gl_light_color lightColor(glfWindow);
 	//lightColor.createLightSource();
 	//lightColor.createLightSource2();
-	
-	std::string path("..//resource//nanosuit//nanosuit.obj");
-	gl_model m(glfWindow);
-	m.loadModel(path);
 
+	//std::string path("..//resource//nanosuit//nanosuit.obj");
+	//gl_model m(glfWindow);
+	//m.loadModel(path);
+
+	skybox sky(glfWindow);
+	sky.init();
 
 
 	//É¾³ýglf×ÊÔ´

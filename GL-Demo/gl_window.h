@@ -11,12 +11,14 @@
 
 #include "shader.h"
 #include "stb_image.h"
+#include "glhelper.h"
 
 
 class gl_window
 {
 private:
 	GLFWwindow* window;
+
 
 public:
 	gl_window(GLFWwindow* window);

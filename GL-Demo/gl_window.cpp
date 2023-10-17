@@ -1,81 +1,4 @@
-#include <iostream>
 #include "gl_window.h"
-
-
-float mixValue = 0.2f;
-int screenWidth = 800;
-int screenHeight = 600;
-
-//回调函数，用于监听窗口大小改变
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-	screenWidth = width;
-	screenHeight = height;
-	std::cout << "size changed, width:" << width << " height:" << height << std::endl;
-	//重新设置窗口大小
-	glViewport(0, 0, width, height);
-};
-
-glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-
-
-//处理输入事件
-void processInput(GLFWwindow* window)
-{
-
-	//关闭窗口
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-	{
-		glfwSetWindowShouldClose(window, true);
-	}
-
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, true);
-
-	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-	{
-		mixValue += 0.01f; // change this value accordingly (might be too slow or too fast based on system hardware)
-		if (mixValue >= 1.0f)
-			mixValue = 1.0f;
-		std::cout << "mixValue: " << mixValue << std::endl;
-	}
-	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-	{
-		mixValue -= 0.01f; // change this value accordingly (might be too slow or too fast based on system hardware)
-		if (mixValue <= 0.0f)
-			mixValue = 0.0f;
-		std::cout << "mixValue: " << mixValue << std::endl;
-	}
-
-	float cameraSpeed = 0.05f; // adjust accordingly
-	//float cameraSpeed = static_cast<float>(2.5 * deltaTime);
-
-	// 因为这里cameraFront z是-1.0f，相当于w减小cameraPos的z(拉近距离)，s增大cameraPos的z(拉远距离)
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		cameraPos += cameraSpeed * cameraFront;
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		cameraPos -= cameraSpeed * cameraFront;	
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-	{
-		//normalize是对矩阵标准化
-		//cross是指两个向量相交的结果，cameraFront是z向量，cameraUp是y向量，相交是x向量。同时注意向量相交是有顺序的
-		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-	}
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-	{
-		//注意向量相交是有顺序的,下面两种写法效果是一致的
-		cameraPos -= glm::normalize(glm::cross(cameraUp, cameraFront)) * cameraSpeed;
-		//cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-	}
-
-
-	std::cout << "cameraPos: " << cameraPos.x  << "  " << cameraPos.y << "  " << cameraPos.z << std::endl;
-}
-
-
-
 
 gl_window::gl_window(GLFWwindow* window)
 {
@@ -104,7 +27,6 @@ void gl_window::createWindow()
 		glfwPollEvents();
 	}
 }
-
 
 void gl_window::createTriangle()
 {
@@ -362,7 +284,6 @@ void gl_window::createTwoTriangle()
 
 }
 
-
 void gl_window::testShader()
 {
 	Shader ourShader("..\\shader\\3.3.shader.vs", "..\\shader\\3.3.shader.fs");
@@ -556,7 +477,6 @@ void gl_window::testTextpures()
 	glDeleteBuffers(1, &EBO);
 
 }
-
 
 void gl_window::testTextpures2()
 {
@@ -1026,7 +946,7 @@ void gl_window::test3DBox()
 		glm::mat4 projection = glm::mat4(1.0f);	//投影矩阵
 		model = glm::rotate(model, glm::radians(45.0f), glm::vec3(0.0f, 1.0f, 0.0f));	//模型矩阵Y轴旋转45度
 		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -2.0f));	//将矩阵向我们要进行移动场景的反方向移动。（z轴）
-		projection = glm::perspective(glm::radians(45.0f), (float)screenWidth/(float)screenHeight, 0.1f, 100.0f);
+		projection = glm::perspective(glm::radians(45.0f), (float)gl_screenWidth/(float)gl_screenHeight, 0.1f, 100.0f);
 
 		unsigned int modelLoc = glGetUniformLocation(ourShader.ID, "model");
 		unsigned int viewLoc = glGetUniformLocation(ourShader.ID, "view");
@@ -1213,7 +1133,7 @@ void gl_window::test3DBoxs()
 		glm::mat4 projection = glm::mat4(1.0f);	//投影矩阵
 
 		//当前，我们将投影矩阵设置为每个帧，但是由于投影矩阵很少更改，因此通常将其设置在主循环外一次通常是最佳练习。//(T fovy, T aspect, T zNear, T zFar)
-		projection	= glm::perspective(glm::radians(45.0f), (float)screenWidth/(float)screenHeight, 0.1f, 100.0f);
+		projection	= glm::perspective(glm::radians(45.0f), (float)gl_screenWidth / (float)gl_screenHeight, 0.1f, 100.0f);
 		view		= glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));	//将矩阵向我们要进行移动场景的反方向移动。（z轴）
 
 		ourShader.setMat4("projection", projection);
@@ -1245,63 +1165,6 @@ void gl_window::test3DBoxs()
 	glDeleteBuffers(1, &VBO);
 }
 
-bool firstMouse = true;
-float yaw = -90.0f;	// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
-float pitch = 0.0f;
-float lastX = 800.0f / 2.0;
-float lastY = 600.0 / 2.0;
-float fov = 45.0f;
-
-// timing
-float deltaTime = 0.0f;	// time between current frame and last frame
-float lastFrame = 0.0f;
-
-
-void mouse_callback(GLFWwindow* window, double xposIn, double yposIn) {
-	float xpos = static_cast<float>(xposIn);
-	float ypos = static_cast<float>(yposIn);
-
-	if (firstMouse)
-	{
-		lastX = xpos;
-		lastY = ypos;
-		firstMouse = false;
-	}
-
-	float xoffset = xpos - lastX;
-	float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
-	lastX = xpos;
-	lastY = ypos;
-
-	float sensitivity = 0.1f; // change this value to your liking
-	xoffset *= sensitivity;
-	yoffset *= sensitivity;
-
-	yaw += xoffset;
-	pitch += yoffset;
-
-	// make sure that when pitch is out of bounds, screen doesn't get flipped
-	if (pitch > 89.0f)
-		pitch = 89.0f;
-	if (pitch < -89.0f)
-		pitch = -89.0f;
-
-	glm::vec3 front(1.0f);
-	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-	front.y = sin(glm::radians(pitch));
-	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-	cameraFront = glm::normalize(front);
-
-};
-
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
-{
-	fov -= (float)yoffset;
-	if (fov < 1.0f)
-		fov = 1.0f;
-	if (fov > 45.0f)
-		fov = 45.0f;
-}
 
 void gl_window::testCamera()
 {
@@ -1448,8 +1311,8 @@ void gl_window::testCamera()
 
 
 	//设置鼠标自由旋转
-	glfwSetScrollCallback(window, scroll_callback);
-	glfwSetCursorPosCallback(window, mouse_callback);
+	glfwSetScrollCallback(window, scroll_callback2);
+	glfwSetCursorPosCallback(window, mouse_callback2);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -1482,7 +1345,7 @@ void gl_window::testCamera()
 		view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
 		glm::mat4 projection = glm::mat4(1.0f);	//投影矩阵
-		projection = glm::perspective(glm::radians(fov), (float)screenWidth / (float)screenHeight, 0.1f, 100.0f);
+		projection = glm::perspective(glm::radians(fov), (float)gl_screenWidth / (float)gl_screenHeight, 0.1f, 100.0f);
 
 		ourShader.setMat4("projection", projection);
 		ourShader.setMat4("view", view);
